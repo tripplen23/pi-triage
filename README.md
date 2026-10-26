@@ -83,17 +83,26 @@ route can be argued with evidence instead of memory.
 
 ## Layout
 
-| File | Job |
-|---|---|
-| `index.ts` | the tool: source order, credentials, warnings, route text |
-| `questions.ts` | the question set and the confidence floors (rich criteria on purpose) |
-| `compose.ts` | folds answers into one tier + verification; no pi imports, so it is testable |
-| `fallback.ts` | the keyword classifier and its ceiling; no pi imports |
+```
+index.ts            the tool: source order, warnings, tracing (no logic of its own)
+src/questions.ts    the question set + the confidence floors (rich criteria on purpose)
+src/compose.ts      folds answers into one tier + verification   (pure)
+src/fallback.ts     the keyword classifier and its 0.6 ceiling    (pure)
+src/credentials.ts  env var / pi login / ~/.config/laya/env lookup
+src/context.ts      the previous request, so "ok now do it" is classifiable (pure)
+src/engines.ts      the two engine clients
+src/routes.ts       what each tier tells the agent, and how to verify
+src/result.ts       the rendered text                              (pure)
+tests/              node:test: compose, fallback, credentials, context, result
+```
+
+Every file marked *pure* is covered by tests; the rest needs a network or a
+session, which is what the end-to-end checks below are for.
 
 ## Tests
 
 ```bash
-npm test        # node --test: compose + fallback, no network, no model
+npm test        # node --test: 34 cases, no network, no model
 npm run typecheck
 ```
 

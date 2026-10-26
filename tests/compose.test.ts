@@ -5,7 +5,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { compose, verificationOf } from "./compose.ts";
+import { compose, verificationOf } from "../src/compose.ts";
 
 test("the task tier wins when neither noul question fires", () => {
   const r = compose({ task_tier: { choice: "tier_2", confidence: 0.9 } });

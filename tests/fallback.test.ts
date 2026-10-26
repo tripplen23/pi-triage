@@ -5,7 +5,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { classifyHeuristic, isContinuationCrumb } from "./fallback.ts";
+import { classifyHeuristic, isContinuationCrumb } from "../src/fallback.ts";
 
 test("a continuation crumb needs no classification at all", () => {
   for (const prompt of ["ok", "ship it", "LGTM", "go on", "thanks!", "👍"]) {
